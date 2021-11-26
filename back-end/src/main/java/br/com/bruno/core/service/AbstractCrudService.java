@@ -1,12 +1,13 @@
 package br.com.bruno.core.service;
 
 import br.com.bruno.core.service.api.BaseCrudService;
+import br.com.bruno.core.service.api.Validacoes;
 import br.com.bruno.exception.CustonException;
 
 import java.util.List;
 import java.util.Optional;
 
-public abstract class AbstractCrudService<T, ID> implements BaseCrudService<T, ID> {
+public abstract class AbstractCrudService<T, ID> implements BaseCrudService<T, ID>, Validacoes<T> {
 
     @Override
     public List<T> findAll() throws CustonException {
@@ -15,12 +16,20 @@ public abstract class AbstractCrudService<T, ID> implements BaseCrudService<T, I
 
     @Override
     public T save(T entity) throws CustonException {
-        return (T) getRepository().save(entity);
+        Object obj;
+        this.validacao(entity);
+        this.getRepository().save(entity);
+        obj = entity;
+        return (T) obj;
     }
 
     @Override
     public T update(T entity) throws CustonException {
-        return (T) getRepository().save(entity);
+        Object obj;
+        this.validacao(entity);
+        this.getRepository().save(entity);
+        obj = entity;
+        return (T) obj;
     }
 
     @Override
@@ -33,5 +42,9 @@ public abstract class AbstractCrudService<T, ID> implements BaseCrudService<T, I
     public void delete(Integer id) throws CustonException {
         T entity = findById(id);
         if(entity != null) getRepository().delete(entity);
+    }
+
+    @Override
+    public void validacao(T entity) throws CustonException{
     }
 }

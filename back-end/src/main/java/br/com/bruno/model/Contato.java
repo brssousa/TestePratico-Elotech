@@ -1,7 +1,6 @@
 package br.com.bruno.model;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Contato {
@@ -19,6 +18,16 @@ public class Contato {
     @ManyToOne
     @JoinColumn(name = "pessoa")
     private Pessoa pessoa;
+
+    public Contato() {
+    }
+
+    public Contato(String nome, String telefone, String email, Pessoa pessoa) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+        this.pessoa = pessoa;
+    }
 
     public Integer getId() {
         return id;
