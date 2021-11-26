@@ -1,9 +1,6 @@
 package br.com.bruno.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -15,8 +12,9 @@ public class Pessoa {
 
     private String nome;
 
-    private Integer cpf;
+    private String cpf;
 
+    @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
     public Integer getId() {
@@ -35,11 +33,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public Integer getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(Integer cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
