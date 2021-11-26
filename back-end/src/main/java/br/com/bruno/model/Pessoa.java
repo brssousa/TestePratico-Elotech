@@ -2,6 +2,7 @@ package br.com.bruno.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Pessoa {
@@ -16,6 +17,9 @@ public class Pessoa {
 
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Contato> contatoList;
 
     public Integer getId() {
         return id;
@@ -47,5 +51,13 @@ public class Pessoa {
 
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public List<Contato> getContatoList() {
+        return contatoList;
+    }
+
+    public void setContatoList(List<Contato> contatoList) {
+        this.contatoList = contatoList;
     }
 }

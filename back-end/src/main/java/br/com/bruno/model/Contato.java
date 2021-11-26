@@ -1,9 +1,7 @@
 package br.com.bruno.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Contato {
@@ -17,6 +15,10 @@ public class Contato {
     private String telefone;
 
     private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "pessoa")
+    private Pessoa pessoa;
 
     public Integer getId() {
         return id;
