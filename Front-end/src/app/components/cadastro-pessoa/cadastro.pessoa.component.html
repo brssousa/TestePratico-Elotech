@@ -17,7 +17,7 @@
   </div>
   <div class="mb-3 form-group">
     <label class="form-label">Contato</label>
-    <select id="peixe" name="peixe" class="form-control" [(ngModel)]="contato.nome" required #peixe="ngModel">
+    <select id="peixe" name="peixe" class="form-control" [(ngModel)]="contato.id" required #peixe="ngModel">
       <option></option>
       <option [value]="data.id" *ngFor="let data of contatoList">{{data.nome}}</option>
     </select>

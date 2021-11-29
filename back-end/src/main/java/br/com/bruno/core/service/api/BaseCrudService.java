@@ -15,4 +15,6 @@ public interface BaseCrudService<T, ID> {
     T update(T entity) throws CustonException;
     T findById(Integer id) throws CustonException;
     void delete(Integer id) throws CustonException;
+    void beforeSafe(T entity);
+    void afterSafe(T entity);
 }

@@ -19,7 +19,9 @@ public abstract class AbstractCrudService<T, ID> implements BaseCrudService<T, I
     public T save(T entity) throws CustonException {
         Object obj;
         this.validacao(entity);
+        this.beforeSafe(entity);
         this.getRepository().save(entity);
+        this.afterSafe(entity);
         obj = entity;
         return (T) obj;
     }
@@ -47,5 +49,15 @@ public abstract class AbstractCrudService<T, ID> implements BaseCrudService<T, I
 
     @Override
     public void validacao(T entity) throws CustonException{
+    }
+
+    @Override
+    public void beforeSafe(T entity) {
+
+    }
+
+    @Override
+    public void afterSafe(T entity) {
+
     }
 }

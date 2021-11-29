@@ -19,7 +19,7 @@ public class Pessoa implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa", cascade = CascadeType.ALL)
+    @Transient
     private List<Contato> contatoList;
 
     public Integer getId() {

@@ -2,15 +2,16 @@ package br.com.bruno.service;
 
 import br.com.bruno.core.service.AbstractCrudService;
 import br.com.bruno.exception.CustonException;
+import br.com.bruno.model.Contato;
 import br.com.bruno.model.Pessoa;
 import br.com.bruno.repository.PessoaRepository;
+import br.com.bruno.service.api.ContatoService;
 import br.com.bruno.service.api.PessoaService;
 import br.com.bruno.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +19,9 @@ public class PessoaServiceImpl  extends AbstractCrudService<Pessoa, Integer> imp
 
     @Autowired
     PessoaRepository repository;
+
+    @Autowired
+    ContatoService contatoService;
 
     @Override
     public JpaRepository getRepository() {
@@ -61,14 +65,21 @@ public class PessoaServiceImpl  extends AbstractCrudService<Pessoa, Integer> imp
             throw new CustonException("A pessoa deve possuir ao menos um contato.");
         }
 
-        //beforeSafe(pessoa);
         super.validacao(pessoa);
     }
 
-    private Pessoa beforeSafe(@NonNull Pessoa entity) throws CustonException {
+    @Override
+    public void afterSafe(Pessoa entity){
+
         entity.getContatoList().stream().forEach( item -> {
-            item.setPessoa(entity);
+            try {
+                Contato contato = contatoService.findById(item.getId());
+                contato.setPessoa(entity);
+                contatoService.update(contato);
+            } catch (CustonException e) {
+                e.printStackTrace();
+            }
         });
-        return repository.save(entity);
+        super.afterSafe(entity);
     }
 }
