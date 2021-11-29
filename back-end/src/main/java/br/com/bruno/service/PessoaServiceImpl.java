@@ -34,6 +34,14 @@ public class PessoaServiceImpl  extends AbstractCrudService<Pessoa, Integer> imp
     }
 
     @Override
+    public Pessoa save(Pessoa entity) throws CustonException {
+        entity.getContatoList().stream().forEach( item -> {
+            item.setPessoa(entity);
+        });
+        return super.save(entity);
+    }
+
+    @Override
     public void validacao(Pessoa pessoa) throws CustonException{
 
         if (pessoa.getNome()==null || pessoa.getNome()==""){

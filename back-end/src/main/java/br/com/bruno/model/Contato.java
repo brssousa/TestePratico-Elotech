@@ -1,13 +1,13 @@
 package br.com.bruno.model;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.io.Serializable;
 
 @Entity
-public class Contato {
+public class Contato implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String nome;
@@ -16,7 +16,7 @@ public class Contato {
 
     private String email;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pessoa")
     private Pessoa pessoa;
 
@@ -60,20 +60,4 @@ public class Contato {
         this.pessoa = pessoa;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Contato)) return false;
-        Contato contato = (Contato) o;
-        return Objects.equals(getId(), contato.getId()) &&
-                Objects.equals(getNome(), contato.getNome()) &&
-                Objects.equals(getTelefone(), contato.getTelefone()) &&
-                Objects.equals(getEmail(), contato.getEmail()) &&
-                Objects.equals(getPessoa(), contato.getPessoa());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getNome(), getTelefone(), getEmail(), getPessoa());
-    }
 }

@@ -1,17 +1,15 @@
 package br.com.bruno.model;
 
-import org.springframework.stereotype.Indexed;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
-public class Pessoa {
+public class Pessoa implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     private String nome;
@@ -64,20 +62,4 @@ public class Pessoa {
         this.contatoList = contatoList;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Pessoa)) return false;
-        Pessoa pessoa = (Pessoa) o;
-        return Objects.equals(getId(), pessoa.getId()) &&
-                Objects.equals(getNome(), pessoa.getNome()) &&
-                Objects.equals(getCpf(), pessoa.getCpf()) &&
-                Objects.equals(getDataNascimento(), pessoa.getDataNascimento()) &&
-                Objects.equals(getContatoList(), pessoa.getContatoList());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getNome(), getCpf(), getDataNascimento(), getContatoList());
-    }
 }
