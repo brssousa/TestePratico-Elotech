@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,14 +32,6 @@ public class PessoaServiceImpl  extends AbstractCrudService<Pessoa, Integer> imp
     @Override
     public Page<Pessoa> findAll(Pageable pageable) {
         return repository.findAll(pageable);
-    }
-
-    @Override
-    public Pessoa save(Pessoa entity) throws CustonException {
-        entity.getContatoList().stream().forEach( item -> {
-            item.setPessoa(entity);
-        });
-        return super.save(entity);
     }
 
     @Override
@@ -68,6 +61,13 @@ public class PessoaServiceImpl  extends AbstractCrudService<Pessoa, Integer> imp
             throw new CustonException("A pessoa deve possuir ao menos um contato.");
         }
 
-        super.validacao(pessoa);
+        beforeSafe(pessoa);
+    }
+
+    private Pessoa beforeSafe(@NonNull Pessoa entity) throws CustonException {
+        entity.getContatoList().stream().forEach( item -> {
+            item.setPessoa(entity);
+        });
+        return repository.save(entity);
     }
 }
