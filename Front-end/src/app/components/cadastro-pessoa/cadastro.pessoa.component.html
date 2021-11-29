@@ -47,7 +47,7 @@
 
   <div class="mb-3">
     <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="error">
-      <strong>Erro ao Salvar!</strong> Todos os campos são de preenchimento obrigatório.
+      <strong>Erro ao Salvar!</strong> {{msgErro}}
     </div>
     <button type="submit" class="btn btn-primary" (click)="salvar()">Salvar</button>
   </div>

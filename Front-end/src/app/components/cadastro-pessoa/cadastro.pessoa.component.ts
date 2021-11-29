@@ -17,6 +17,7 @@ export class CadastroPessoaComponent implements OnInit{
   pessoa: Pessoa = new Pessoa();
   contatos: Contato[];
   error: boolean = false;
+  msgErro: string;
   contato: Contato = new Contato();
 
   constructor(public mainService: PessoaService,
@@ -32,7 +33,14 @@ export class CadastroPessoaComponent implements OnInit{
       this.mainForm.reset()
       this.error = false;
     },
-      error => this.error = true)
+    error => {
+      this.error = true
+      if(!this.pessoa.nome || !this.pessoa.dataNascimento || !this.pessoa.cpf){
+        this.msgErro = "Todos os campos são de preenchimento obrigatório."
+      } else {
+        this.msgErro = "É obritório adicionar ao menos um contato."
+      }
+      })
   }
 
   addContato(){
