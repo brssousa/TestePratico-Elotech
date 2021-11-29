@@ -16,6 +16,7 @@ export class CadastroPessoaComponent implements OnInit{
 
   pessoa: Pessoa = new Pessoa();
   contatos: Contato[];
+  error: boolean = false;
   contato: Contato = new Contato();
 
   constructor(public mainService: PessoaService,
@@ -29,7 +30,9 @@ export class CadastroPessoaComponent implements OnInit{
     this.mainService.save(this.pessoa).subscribe( dados => {
       this.pessoa = new Pessoa();
       this.mainForm.reset()
-    })
+      this.error = false;
+    },
+      error => this.error = true)
   }
 
   addContato(){
