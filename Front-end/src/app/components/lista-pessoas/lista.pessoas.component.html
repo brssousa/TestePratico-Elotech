@@ -1,0 +1,23 @@
+<h3>
+  Lista de Pessoas
+  <small class="text-muted">- Completa</small>
+</h3>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nome</th>
+    <th scope="col">CPF</th>
+    <th scope="col">Data Nascimento</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of pessoas">
+    <th scope="row">{{data.id}}</th>
+    <td>{{data.nome}}</td>
+    <td>{{data.cpf}}</td>
+    <td>@{{data.dataNascimento}}</td>
+  </tr>
+  </tbody>
+</table>
