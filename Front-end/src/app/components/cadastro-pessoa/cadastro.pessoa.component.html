@@ -15,12 +15,37 @@
     <label for="dn" class="form-label">Data Nascimento</label>
     <input type="date" class="form-control" id="dn" name="dataNascimento" [(ngModel)]="pessoa.dataNascimento">
   </div>
-  <div class="mb-3 form-group">
-    <label class="form-label">Contato</label>
-    <select id="peixe" name="peixe" class="form-control" [(ngModel)]="contato.id" required #peixe="ngModel">
-      <option></option>
-      <option [value]="data.id" *ngFor="let data of contatoList">{{data.nome}}</option>
-    </select>
+  <label class="form-label">Lista de Contato</label>
+  <div class="input-group mb-3">
+      <select id="peixe" name="peixe" class="form-control" [(ngModel)]="contato.id">
+        <option selected></option>
+        <option [value]="data.id" *ngFor="let data of contatos">{{data.nome}}</option>
+      </select>
+      <button type="submit" class="btn btn-dark" (click)="addContato()">+</button>
   </div>
-  <button type="submit" class="btn btn-primary" (click)="salvar()">Salvar</button>
+
+  <div *ngIf="pessoa.contatoList[0]">
+    <table class="table" bgcolor="#add8e6">
+      <thead>
+      <tr bgcolor="#fff">
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Telefone</th>
+        <th scope="col">E-mail</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of pessoa.contatoList">
+        <th scope="row">{{data.id}}</th>
+        <td>{{data.nome}}</td>
+        <td>{{data.telefone}}</td>
+        <td>{{data.email}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary" (click)="salvar()">Salvar</button>
+  </div>
 </form>

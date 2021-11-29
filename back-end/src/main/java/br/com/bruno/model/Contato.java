@@ -16,7 +16,7 @@ public class Contato implements Serializable {
 
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "pessoa")
     private Pessoa pessoa;
 

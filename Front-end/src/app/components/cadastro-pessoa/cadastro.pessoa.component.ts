@@ -15,19 +15,31 @@ export class CadastroPessoaComponent implements OnInit{
   @ViewChild('mainForm') mainForm: FormGroup;
 
   pessoa: Pessoa = new Pessoa();
-  contatoList: Contato[]=[];
+  contatos: Contato[];
   contato: Contato = new Contato();
 
   constructor(public mainService: PessoaService,
               public contatoService: ContatoService) {
   }
   ngOnInit(): void {
-    this.contatoService.listAll().subscribe( dados => this.contatoList = dados);
+    this.contatoService.listAll().subscribe( dados => this.contatos = dados);
   }
 
   salvar(){
-    this.pessoa.contatoList.push(this.contato);
-    this.mainService.save(this.pessoa).subscribe( dados => this.mainForm.reset())
+    this.mainService.save(this.pessoa).subscribe( dados => {
+      this.pessoa = new Pessoa();
+      this.mainForm.reset()
+    })
+  }
+
+  addContato(){
+    let contato: Contato;
+    this.contatos.forEach( item => {
+      if(item.id == this.contato.id){
+        contato = item;
+      }
+    })
+    this.pessoa.contatoList.push(contato);
   }
 
 }
