@@ -63,7 +63,7 @@ public class ContatoServiceImplTeste {
     public void testeSave_EmailInvalido(){
         contato.setNome("Pablo");
         contato.setTelefone("35984552102");
-        contato.setEmail("bruno@gmail.com");
+        contato.setEmail("bruno@gmail..com");
 
         try {
             service.save(contato);

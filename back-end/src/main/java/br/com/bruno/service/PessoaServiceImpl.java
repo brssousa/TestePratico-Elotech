@@ -6,8 +6,9 @@ import br.com.bruno.model.Pessoa;
 import br.com.bruno.repository.PessoaRepository;
 import br.com.bruno.service.api.PessoaService;
 import br.com.bruno.util.Utils;
-import br.com.bruno.util.ValidaCPF;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,16 @@ public class PessoaServiceImpl  extends AbstractCrudService<Pessoa, Integer> imp
     }
 
     @Override
+    public Pessoa findByNome(String nome) throws CustonException {
+        return repository.findByNome(nome);
+    }
+
+    @Override
+    public Page<Pessoa> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
+    @Override
     public void validacao(Pessoa pessoa) throws CustonException{
 
         if (pessoa.getNome()==null || pessoa.getNome()==""){
@@ -33,7 +44,7 @@ public class PessoaServiceImpl  extends AbstractCrudService<Pessoa, Integer> imp
             throw new CustonException("CPF não pode ser em branco.");
         }
 
-        if(!ValidaCPF.isCPF(pessoa.getCpf())){
+        if(!Utils.isCPF(pessoa.getCpf())){
             throw new CustonException("Este CPF não é valido.");
         }
 

@@ -1,8 +1,11 @@
 package br.com.bruno.model;
 
+import org.springframework.stereotype.Indexed;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Pessoa {
@@ -18,18 +21,8 @@ public class Pessoa {
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pessoa", cascade = CascadeType.ALL)
     private List<Contato> contatoList;
-
-    public Pessoa() {
-    }
-
-    public Pessoa(String nome, String cpf, Date dataNascimento, List<Contato> contatoList) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.dataNascimento = dataNascimento;
-        this.contatoList = contatoList;
-    }
 
     public Integer getId() {
         return id;
@@ -69,5 +62,22 @@ public class Pessoa {
 
     public void setContatoList(List<Contato> contatoList) {
         this.contatoList = contatoList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pessoa)) return false;
+        Pessoa pessoa = (Pessoa) o;
+        return Objects.equals(getId(), pessoa.getId()) &&
+                Objects.equals(getNome(), pessoa.getNome()) &&
+                Objects.equals(getCpf(), pessoa.getCpf()) &&
+                Objects.equals(getDataNascimento(), pessoa.getDataNascimento()) &&
+                Objects.equals(getContatoList(), pessoa.getContatoList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNome(), getCpf(), getDataNascimento(), getContatoList());
     }
 }

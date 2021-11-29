@@ -3,6 +3,7 @@ package br.com.bruno.core.service;
 import br.com.bruno.core.service.api.BaseCrudService;
 import br.com.bruno.core.service.api.Validacoes;
 import br.com.bruno.exception.CustonException;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;

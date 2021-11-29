@@ -4,6 +4,8 @@ import br.com.bruno.exception.CustonException;
 import br.com.bruno.model.Pessoa;
 import br.com.bruno.service.api.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +19,20 @@ public class PessoaResource {
     @Autowired
     PessoaService service;
 
+    @GetMapping("/nome/{nome}")
+    public ResponseEntity<Pessoa> findByNome(@PathVariable(value = "nome") String nome) throws CustonException {
+        Pessoa pessoa = service.findByNome(nome);
+        if(pessoa!=null){
+            return ResponseEntity.status(HttpStatus.OK).body(pessoa);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
     @GetMapping("/list")
-    public ResponseEntity<List<Pessoa>> list() throws CustonException {
-        List<Pessoa> pessoaList = service.findAll();
+    public ResponseEntity<Page<Pessoa>> findAll(Pageable pageable){
+        Page<Pessoa> pessoaList = service.findAll(pageable);
         if(pessoaList!=null && !pessoaList.isEmpty()){
             return ResponseEntity.status(HttpStatus.OK).body(pessoaList);
         } else {
@@ -27,7 +40,7 @@ public class PessoaResource {
         }
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/cod/{id}")
     public ResponseEntity<Pessoa> getById(@PathVariable(value = "id") Integer id){
         try {
             Pessoa pessoa = service.findById(id);
