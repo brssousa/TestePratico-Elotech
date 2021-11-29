@@ -16,11 +16,14 @@ export class BaseCrudService<T> {
     return this._http.get<T[]>(this.API + this._path + "/list");
   }
 
+  listAll() {
+    return this._http.get<T[]>(this.API + this._path + "/listAll");
+  }
+
   save(dados: any) {
     if(dados.id){
       return this._http.put(this.API + this._path + "/edit", dados);
     } else {
-      debugger
       return this._http.post(this.API + this._path + "/create", dados);
     }
   }

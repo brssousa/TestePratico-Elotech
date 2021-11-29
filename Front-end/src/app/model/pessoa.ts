@@ -1,3 +1,5 @@
+import {Contato} from "./contato";
+
 export class Pessoa{
 
   id: number;
@@ -8,5 +10,5 @@ export class Pessoa{
 
   dataNascimento: Date;
 
-  contatoList: [] = [];
+  contatoList: Contato[] = [];
 }

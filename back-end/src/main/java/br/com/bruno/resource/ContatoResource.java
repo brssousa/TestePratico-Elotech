@@ -20,6 +20,16 @@ public class ContatoResource {
     @Autowired
     ContatoService service;
 
+    @GetMapping("/listAll")
+    public ResponseEntity<List<Contato>> listAll() throws CustonException {
+        List<Contato> contatoList = service.findAll();
+        if(contatoList!=null && !contatoList.isEmpty()){
+            return ResponseEntity.status(HttpStatus.OK).body(contatoList);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/list")
     public ResponseEntity<Page<Contato>> findAll(Pageable pageable){
         Page<Contato> contatoList = service.findAll(pageable);

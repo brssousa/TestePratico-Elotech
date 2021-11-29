@@ -16,15 +16,17 @@ export class CadastroPessoaComponent implements OnInit{
 
   pessoa: Pessoa = new Pessoa();
   contatoList: Contato[]=[];
+  contato: Contato = new Contato();
 
   constructor(public mainService: PessoaService,
               public contatoService: ContatoService) {
   }
   ngOnInit(): void {
-    this.contatoService.list().subscribe( dados => this.contatoList = dados);
+    this.contatoService.listAll().subscribe( dados => this.contatoList = dados);
   }
 
   salvar(){
+    this.pessoa.contatoList.push(this.contato);
     this.mainService.save(this.pessoa).subscribe( dados => this.mainForm.reset())
   }
 

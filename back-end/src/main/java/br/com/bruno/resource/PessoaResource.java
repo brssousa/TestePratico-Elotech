@@ -29,6 +29,16 @@ public class PessoaResource {
         }
     }
 
+    @GetMapping("/listAll")
+    public ResponseEntity<List<Pessoa>> findAll() throws CustonException {
+        List<Pessoa> pessoaList = service.findAll();
+        if(pessoaList!=null && !pessoaList.isEmpty()){
+            return ResponseEntity.status(HttpStatus.OK).body(pessoaList);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     @GetMapping("/list")
     public ResponseEntity<Page<Pessoa>> findAll(Pageable pageable){

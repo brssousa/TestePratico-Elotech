@@ -15,7 +15,9 @@ export class ListaPessoasComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.service.list().subscribe( dados => this.pessoas = dados);
+    this.service.listAll().subscribe( dados => {
+      this.pessoas = dados
+    });
   }
 
 }

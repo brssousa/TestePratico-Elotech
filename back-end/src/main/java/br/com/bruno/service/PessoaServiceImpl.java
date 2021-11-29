@@ -61,7 +61,8 @@ public class PessoaServiceImpl  extends AbstractCrudService<Pessoa, Integer> imp
             throw new CustonException("A pessoa deve possuir ao menos um contato.");
         }
 
-        beforeSafe(pessoa);
+        //beforeSafe(pessoa);
+        super.validacao(pessoa);
     }
 
     private Pessoa beforeSafe(@NonNull Pessoa entity) throws CustonException {
