@@ -1,15 +1,25 @@
-<form>
-  <div class="mb-3">
+<h3>
+  Cadastro
+  <small class="text-muted">- Pessoa</small>
+</h3>
+<form #mainForm="ngForm">
+  <div class="mb-3 form-group">
     <label for="nome" class="form-label">Nome</label>
-    <input type="text" class="form-control" id="nome">
+    <input type="text" class="form-control" id="nome" [(ngModel)]="pessoa.nome">
   </div>
-  <div class="mb-3">
+  <div class="mb-3 form-group">
     <label for="cpf" class="form-label">CPF</label>
-    <input type="text" class="form-control" id="cpf">
+    <input type="text" class="form-control" id="cpf" [(ngModel)]="pessoa.cpf">
   </div>
-  <div class="mb-3">
+  <div class="mb-3 form-group">
     <label for="dn" class="form-label">Data Nascimento</label>
-    <input type="text" class="form-control" id="dn">
+    <input type="text" class="form-control" id="dn" [(ngModel)]="pessoa.dataNascimento">
+  </div>
+  <div class="mb-3 form-group">
+    <label class="form-label">Contato</label>
+    <select class="form-select" aria-label="Default select example">
+      <option [value]="data.id" *ngFor="let data of contatoList">{{data.nome}}</option>
+    </select>
   </div>
   <button type="submit" class="btn btn-primary">Salvar</button>
 </form>

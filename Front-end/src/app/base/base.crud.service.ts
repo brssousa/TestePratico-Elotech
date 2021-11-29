@@ -20,6 +20,7 @@ export class BaseCrudService<T> {
     if(dados.id){
       return this._http.put(this.API + this._path + "/edit", dados);
     } else {
+      debugger
       return this._http.post(this.API + this._path + "/create", dados);
     }
   }

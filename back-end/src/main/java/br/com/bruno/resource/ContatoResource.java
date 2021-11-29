@@ -9,10 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,5 +38,22 @@ public class ContatoResource {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<Contato> save(@RequestBody Contato contato) throws CustonException {
+        Contato save = service.save(contato);
+        return ResponseEntity.status(HttpStatus.CREATED).body(save);
+    }
+
+    @PutMapping("/edit")
+    public ResponseEntity<Contato> update(@RequestBody Contato contato) throws CustonException {
+        Contato update = service.update(contato);
+        return ResponseEntity.status(HttpStatus.OK).body(update);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable(value = "id") Integer id) throws CustonException {
+        service.delete(id);
     }
 }

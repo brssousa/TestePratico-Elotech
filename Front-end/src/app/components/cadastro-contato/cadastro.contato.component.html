@@ -1,0 +1,19 @@
+<h3>
+  Cadastro
+  <small class="text-muted">- Contato</small>
+</h3>
+<form #mainForm="ngForm">
+  <div class="mb-3 form-group">
+    <label for="nome" class="form-label">Nome</label>
+    <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="contato.nome">
+  </div>
+  <div class="mb-3 form-group">
+    <label for="telefone" class="form-label">Telefone</label>
+    <input type="tel" class="form-control" id="telefone" name="telefone" [(ngModel)]="contato.telefone">
+  </div>
+  <div class="mb-3 form-group">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" name="email" [(ngModel)]="contato.email">
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="salvar()">Salvar</button>
+</form>
