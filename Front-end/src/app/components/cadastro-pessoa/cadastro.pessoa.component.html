@@ -32,6 +32,7 @@
         <th scope="col">Nome</th>
         <th scope="col">Telefone</th>
         <th scope="col">E-mail</th>
+        <th scope="col" class="align-right"></th>
       </tr>
       </thead>
       <tbody>
@@ -40,6 +41,10 @@
         <td>{{data.nome}}</td>
         <td>{{data.telefone}}</td>
         <td>{{data.email}}</td>
+        <td class="text-center"  width="10px">
+          <button type="button" class="btn btn-sm bg-transparent pointer" (click)="removeContatoList(data)">X
+          </button>
+        </td>
       </tr>
       </tbody>
     </table>

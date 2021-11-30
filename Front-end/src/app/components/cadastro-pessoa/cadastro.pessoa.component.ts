@@ -51,4 +51,9 @@ export class CadastroPessoaComponent implements OnInit{
     }
   }
 
+  removeContatoList(contato: Contato){
+    let index = this.pessoa.contatoList.indexOf(contato);
+    this.pessoa.contatoList.splice(index, 1);
+  }
+
 }
