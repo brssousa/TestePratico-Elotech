@@ -11,7 +11,8 @@ import {FormGroup} from "@angular/forms";
 export class CadastroContatoComponent{
 
   contato: Contato = new Contato();
-  error: boolean = false;
+  isErro: boolean = false;
+  msgErro: string;
   @ViewChild('mainForm') mainForm: FormGroup;
 
   constructor(public mainService: ContatoService) {
@@ -20,9 +21,12 @@ export class CadastroContatoComponent{
   salvar(){
     this.mainService.save(this.contato).subscribe( dados => {
       this.mainForm.reset()
-      this.error = false;
+      this.isErro = false;
     },
-      error => this.error = true);
+      error => {
+        this.isErro = true
+        this.msgErro = error.error;
+      });
   }
 
 }

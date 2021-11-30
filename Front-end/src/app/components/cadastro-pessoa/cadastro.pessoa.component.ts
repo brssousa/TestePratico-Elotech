@@ -16,7 +16,7 @@ export class CadastroPessoaComponent implements OnInit{
 
   pessoa: Pessoa = new Pessoa();
   contatos: Contato[];
-  error: boolean = false;
+  isErro: boolean = false;
   msgErro: string;
   contato: Contato = new Contato();
 
@@ -31,26 +31,24 @@ export class CadastroPessoaComponent implements OnInit{
     this.mainService.save(this.pessoa).subscribe( dados => {
       this.pessoa = new Pessoa();
       this.mainForm.reset()
-      this.error = false;
+      this.isErro = false;
     },
     error => {
-      this.error = true
-      if(!this.pessoa.nome || !this.pessoa.dataNascimento || !this.pessoa.cpf){
-        this.msgErro = "Todos os campos são de preenchimento obrigatório."
-      } else {
-        this.msgErro = "É obritório adicionar ao menos um contato."
-      }
+      this.isErro = true
+      this.msgErro = error.error;
       })
   }
 
   addContato(){
-    let contato: Contato;
-    this.contatos.forEach( item => {
-      if(item.id == this.contato.id){
-        contato = item;
-      }
-    })
-    this.pessoa.contatoList.push(contato);
+    if(this.contato.id){
+      let contato: Contato;
+      this.contatos.forEach( item => {
+        if(item.id == this.contato.id){
+          contato = item;
+        }
+      })
+      this.pessoa.contatoList.push(contato);
+    }
   }
 
 }

@@ -61,9 +61,15 @@ public class PessoaResource {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Pessoa> save(@RequestBody Pessoa pessoa) throws CustonException {
-        Pessoa save = service.save(pessoa);
-        return ResponseEntity.status(HttpStatus.CREATED).body(save);
+    public ResponseEntity save(@RequestBody Pessoa pessoa){
+        Pessoa save = null;
+        try {
+            save = service.save(pessoa);
+            return ResponseEntity.status(HttpStatus.CREATED).body(save);
+        } catch (CustonException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PutMapping("/edit")

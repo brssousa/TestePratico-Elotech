@@ -17,7 +17,7 @@
   </div>
   <label class="form-label">Lista de Contato</label>
   <div class="input-group mb-3">
-      <select id="peixe" name="peixe" class="form-control" [(ngModel)]="contato.id">
+      <select id="peixe" name="peixe" class="form-control" [(ngModel)]="contato.id" #selectElement>
         <option selected></option>
         <option [value]="data.id" *ngFor="let data of contatos">{{data.nome}}</option>
       </select>
@@ -46,7 +46,7 @@
   </div>
 
   <div class="mb-3">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="error">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isErro">
       <strong>Erro ao Salvar!</strong> {{msgErro}}
     </div>
     <button type="submit" class="btn btn-primary" (click)="salvar()">Salvar</button>

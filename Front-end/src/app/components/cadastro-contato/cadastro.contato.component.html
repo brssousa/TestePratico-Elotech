@@ -15,8 +15,8 @@
     <label for="email" class="form-label">Email</label>
     <input type="email" class="form-control" id="email" name="email" [(ngModel)]="contato.email">
   </div>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="error">
-    <strong>Erro ao Salvar!</strong> Todos os campos são de preenchimento obrigatório.
+  <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="isErro">
+    <strong>Erro ao Salvar!</strong> {{msgErro}}
   </div>
   <button type="submit" class="btn btn-primary" (click)="salvar()">Salvar</button>
 </form>
