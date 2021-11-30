@@ -24,7 +24,7 @@
       <button type="submit" class="btn btn-dark" (click)="addContato()">+</button>
   </div>
 
-  <div *ngIf="pessoa.contatoList[0]">
+  <div *ngIf="pessoa.contatoList.length > 0">
     <table class="table" bgcolor="#add8e6">
       <thead>
       <tr bgcolor="#fff">

@@ -74,8 +74,17 @@ public class PessoaServiceImpl  extends AbstractCrudService<Pessoa, Integer> imp
         entity.getContatoList().stream().forEach( item -> {
             try {
                 Contato contato = contatoService.findById(item.getId());
-                contato.setPessoa(entity);
-                contatoService.update(contato);
+                if(contato.getPessoa() == null) {
+                    contato.setPessoa(entity);
+                    contatoService.update(contato);
+                } else {
+                    Contato novo = new Contato();
+                    novo.setNome(item.getNome());
+                    novo.setTelefone(item.getTelefone());
+                    novo.setEmail(item.getEmail());
+                    novo.setPessoa(entity);
+                    contatoService.save(novo);
+                }
             } catch (CustonException e) {
                 e.printStackTrace();
             }
